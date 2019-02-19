@@ -14,8 +14,32 @@ p range(1, 5) # [1, 2, 3, 4]
 
 # Write both a recursive and iterative version of sum of an array.
 
+def sum_array_recursive(arr)
+  # base case
+  if arr.empty?
+    0 
+  else # recursive call
+    arr.pop + sum_array_recursive(arr)
+  end
+end
+
+def sum_array_iterative(arr)
+  arr.inject(:+)
+end
+
+# Select without a passed-in function (note how the recursive nature of the function
+# is made clear by the return value of the block in the case where the predicate is not met)
+
+# [1,2,3,4,5].inject([]) {|memo, obj| obj > 3 ? memo << obj : memo }
+
+p sum_array_recursive([4,3,2,7,9])
+
+arr = [4,3,2,7,9]
+
+p sum_array_iterative(arr)
 
 
+# https://www.leighhalliday.com/recursion-in-ruby
 
 # # Exponentiation
 
