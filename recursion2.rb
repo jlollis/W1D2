@@ -9,9 +9,6 @@ end
 
 p range(1, 5) # [1, 2, 3, 4]
 
-# https://www.reddit.com/r/ruby/comments/33zl52/need_help_with_using_recursion_for_factorials/ 
-# thanks for the illumination, 0x0dea, wherever you are...
-
 # Write both a recursive and iterative version of sum of an array.
 
 def sum_array_recursive(arr)
@@ -27,19 +24,11 @@ def sum_array_iterative(arr)
   arr.inject(:+)
 end
 
-# Select without a passed-in function (note how the recursive nature of the function
-# is made clear by the return value of the block in the case where the predicate is not met)
-
-# [1,2,3,4,5].inject([]) {|memo, obj| obj > 3 ? memo << obj : memo }
-
 p sum_array_recursive([4,3,2,7,9])
 
 arr = [4,3,2,7,9]
 
 p sum_array_iterative(arr)
-
-
-# https://www.leighhalliday.com/recursion-in-ruby
 
 # # Exponentiation
 
