@@ -29,8 +29,7 @@ end
 p add_numbers([1,2,3,4]) # => returns 10
 p add_numbers([3]) # => returns 3
 p add_numbers([-80,34,7]) # => returns -39
-# puts add_numbers([]) # => returns nil --> Dang, can't get error handling to work, can't break or return nil...moving on...
-
+# puts add_numbers([]) # => 
 # Exercise 3
 # Let's write a method that will solve Gamma Function recursively. The Gamma Function is defined Γ(n) = (n-1)!.
 
