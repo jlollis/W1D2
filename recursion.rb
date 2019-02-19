@@ -11,7 +11,7 @@ end
 p sum_to(5)  # => returns 15
 p sum_to(1)  # => returns 1
 p sum_to(9)  # => returns 45
-p sum_to(-8)  # => returns nil --> stack level too deep error at first, added conditional to filter out negative values and now as expected.
+p sum_to(-8)  # => returns nil
 
 # Exercise 2
 # Write a function add_numbers(nums_array) that takes in an array of Integers and returns the sum of those numbers. Write this method recursively.
