@@ -17,7 +17,7 @@ p sum_to(-8)  # => returns nil
 # Write a function add_numbers(nums_array) that takes in an array of Integers and returns the sum of those numbers. Write this method recursively.
 
 def add_numbers(nums_array)
-  if nums_array.empty?
+  if nums_array.empty? 
     0
   else 
     n = nums_array.pop
