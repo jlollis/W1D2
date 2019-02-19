@@ -30,20 +30,45 @@ arr = [4,3,2,7,9]
 
 p sum_array_iterative(arr)
 
-# # Exponentiation
+# Exponentiation
 
-# # this is math, not Ruby methods.
-
-# # recursion 1
+# recursion 1
 # exp(b, 0) = 1
 # exp(b, n) = b * exp(b, n - 1)
 
-# # recursion 2
+# recursion 2
 # exp(b, 0) = 1
 # exp(b, 1) = b
 # exp(b, n) = exp(b, n / 2) ** 2             [for even n]
 # exp(b, n) = b * (exp(b, (n - 1) / 2) ** 2) [for odd n]
 
+# recursion 1 
+def exponent_recursion1(n, exp)
+  if exp == 0
+    1
+  else
+    return n * exponent_recursion1(n, exp - 1)
+  end
+end
+
+# recursion 2 
+
+def exponent_recursion2(n, exp)
+  if exp == 0
+    1
+  elsif exp == 1
+    n
+  elsif n % 2 == 0
+    exponent_recursion2(n, exp / 2) ** 2
+  else
+    n * exponent_recursion2(n, (exp - 1) / 2) ** 2
+  end
+end
+
+n = 3
+exp = 4
+p exponent_recursion1(n, exp) 
+p exponent_recursion2(n, exp) # seems to be cutting off, or there is an error, maybe it can't handle an exponent higher than 3 with this type of recursion, or there is an error
 
 # # Using recursion and the is_a? method, write an Array#deep_dup method that will perform a "deep" duplication of the interior arrays.
 # robot_parts = [
