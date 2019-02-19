@@ -17,8 +17,8 @@ p sum_to(-8)  # => returns nil
 # Write a function add_numbers(nums_array) that takes in an array of Integers and returns the sum of those numbers. Write this method recursively.
 
 def add_numbers(nums_array)
-  if nums_array == []
-    return 0
+  if nums_array.empty?
+    0
   else 
     n = nums_array.pop
     return n + add_numbers(nums_array)
@@ -29,7 +29,7 @@ end
 p add_numbers([1,2,3,4]) # => returns 10
 p add_numbers([3]) # => returns 3
 p add_numbers([-80,34,7]) # => returns -39
-# puts add_numbers([]) # => (moving on...)
+p add_numbers([]) # => (...can't get this to return nil. returning 0 for now...moving on...)
 
 # Exercise 3
 # Let's write a method that will solve Gamma Function recursively. The Gamma Function is defined Γ(n) = (n-1)!.
