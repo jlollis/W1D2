@@ -1,9 +1,11 @@
-# Warmup
+# Recursion 2
 
-# Write a recursive method, range, that takes a start and an end and returns an array of all numbers in that range, exclusive. For example, range(1, 5) should return [1, 2, 3, 4]. If end < start, you can return an empty array.
+# Write a recursive method, range, that takes a start and an end and returns an array 
+# of all numbers in that range, exclusive. For example, range(1, 5) should return 
+# [1, 2, 3, 4]. If end < start, you can return an empty array.
 
 def range(min, max)
-  return [] if max == min  # base case is array
+  return [] if max == min  # base case is an array (so our function returns an array)
   [min] + range(min + 1, max)
 end
 
@@ -19,19 +21,16 @@ def sum_array_recursive(arr)
     arr.pop + sum_array_recursive(arr)
   end
 end
+p sum_array_recursive([4,3,2,7,9])  # 25
 
 def sum_array_iterative(arr)
   arr.inject(:+)
 end
 
-p sum_array_recursive([4,3,2,7,9])
-
-arr = [4,3,2,7,9]
-
-p sum_array_iterative(arr)
+p sum_array_iterative([4,3,2,7,9])  # 25
 
 # Exponentiation
-
+# Math Examples:
 # recursion 1
 # exp(b, 0) = 1
 # exp(b, n) = b * exp(b, n - 1)
@@ -51,46 +50,53 @@ def exponent_recursion1(n, exp)
   end
 end
 
-# recursion 2 
+puts "Exponent Recursion 1: \n"
+n = 3
+exp = 4
+p exponent_recursion1(n, exp) # 81
 
+# recursion 2 
 def exponent_recursion2(n, exp)
   if exp == 0
     1
-  elsif exp == 1
-    n
-  elsif n % 2 == 0
+  elsif exp % 2 == 0
     exponent_recursion2(n, exp / 2) ** 2
   else
     n * exponent_recursion2(n, (exp - 1) / 2) ** 2
   end
 end
 
-n = 3
-exp = 4
-p exponent_recursion1(n, exp) 
-p exponent_recursion2(n, exp) # seems to be cutting off, or there is an error, maybe it can't handle an exponent higher than 3 with this type of recursion, or there is an error
+puts "Exponent Recursion 2: \n"
+p exponent_recursion2(n, exp) # 81
 
 # Deep dup
-
-# Using recursion and the is_a? method, write an Array#deep_dup method that will perform a "deep" duplication of the interior arrays.
+# Using recursion and the is_a? method, write an Array#deep_dup method 
+# that will perform a "deep" duplication of the interior arrays.
 
 robot_parts = [
   ["nuts", "bolts", "washers"],
   ["capacitors", "resistors", "inductors"]
 ]
 
+# how to do deep copy with Ruby using recursion
 def deep_dup(arr)
   Marshal.load( Marshal.dump(arr) )
 end
 
+puts "Deep dup: \n"
 p deep_dup(robot_parts)   # [["nuts", "bolts", "washers"], ["capacitors", "resistors", "inductors"]]
 
 # Fibonacci
-# Write a recursive and an iterative Fibonacci method. The method should take in an integer n and return the first n Fibonacci numbers in an array.
+# Write a recursive and an iterative Fibonacci method. 
+# The method should take in an integer n and return the first n Fibonacci numbers in an array.
 
 def fib_rec(n)
   n < 2 ? n : fib_rec(n-1) + fib_rec(n-2)
 end
+
+puts "Fibonacci, Recursive: \n"
+p fib_rec(9)    # 34
+p fib_rec(11)   # 89
 
 def fib_iter(n)
   a = 0
@@ -104,87 +110,142 @@ def fib_iter(n)
   return a
 end
 
-p fib_rec(9)    # 34
+puts "Fibonacci, Iterative: \n"
 p fib_iter(9)   # 34
-
-p fib_rec(11)   #89
-p fib_iter(11)  #89
+p fib_iter(11)  # 89
 
 # Binary Search
-# Write a recursive binary search: bsearch(array, target). Note that binary search only works on sorted arrays. Make sure to return the location of the found object (or nil if not found!). Hint: you will probably want to use subarrays.
+# Write a recursive binary search: bsearch(array, target). 
 
 def bsearch(array, target)
-    min_index = 0
-    max_index = array.size - 1
-    mid_index = (min_index+max_index)/2
-    case array[mid_index] <=> target
-    when  0 
-      mid_index
-    when -1  
-      min_index = mid_index + 1
-      bsearch(array, target)
-    when  1 
-      max_index = mid_index - 1
-      bsearch(array, target)
+  return nil if array.empty?
+
+  half = array.length / 2
+  
+  case target <=> array[half] 
+    when -1  # left search
+      bsearch(array.take(half), target)
+    when  0  # hits target
+      half
+    when  1  # right search
+      is_high = bsearch(array.drop(half + 1), target)
+      is_high.nil? ? nil : (half + 1) + is_high 
     end
 end
 
-# Make sure that these test cases are working:
+puts "Recursive Binary Search: \n"
 
 p bsearch([1, 2, 3], 1) # => 0
-# bsearch([2, 3, 4, 5], 3) # => 1
-# bsearch([2, 4, 6, 8, 10], 6) # => 2
-# bsearch([1, 3, 4, 5, 9], 5) # => 3
-# bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
-# bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
-# bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+p bsearch([2, 3, 4, 5], 3) # => 1
+p bsearch([2, 4, 6, 8, 10], 6) # => 2
+p bsearch([1, 3, 4, 5, 9], 5) # => 3
+p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
 
+# Merge Sort
+# Implement a method merge_sort that sorts an Array.
 
+# You need to have merge available before you can do merge sort.
 
-# # Merge Sort
-# # Implement a method merge_sort that sorts an Array:
+def merge(a, b) # merge takes in arrays a and b as parameters
+  idx_a = 0
+  idx_b = 0
 
-# # The base cases are for arrays of length zero or one. Do not use a length-two array as a base case. This is unnecessary.
-# # You'll want to write a merge helper method to merge the sorted halves.
-# # To get a visual idea of how merge sort works, watch this gif and check out this diagram.
+  new_arr = []
 
-def merge_sort
+  while idx_a < a.length && idx_b < b.length do
+    if a[idx_a] <= b[idx_b] then
+      new_arr << a[idx_a]
+      idx_a += 1
+    else
+      new_arr << b[idx_b]
+      idx_b += 1
+    end
+  end
+  if (idx_a < a.length) then
+    for i in (idx_a..a.length-1) do
+      new_arr << a[i]
+    end
+  else
+    for i in (idx_b..b.length-1) do
+      new_arr << b[i]
+    end
+  end
+  return new_arr
+end
 
-end 
+p merge([1, 2, 3, 4, 5, 7], [3, 5, 6, 9, 11, 15, 18]) 
+# => [1, 2, 3, 3, 4, 5, 5, 6, 7, 9, 11, 15, 18]
 
+def merge_sort(array)
+  return array if array.length == 1 
+  midpoint = array.length/2
+  a = array[0..midpoint-1]
+  b = array[midpoint..array.length-1]
+  new_a = merge_sort(a) 
+  new_b = merge_sort(b) 
+  new_arr = merge(new_a, new_b)
+  return new_arr
+end
+
+puts "Merge Sort: \n"
+p merge_sort([5,2,6,77,13,5,2,61,6,1,6777,1]) 
+# => [1, 1, 2, 2, 5, 5, 6, 6, 13, 61, 77, 6777]
 
 # Array Subsets
+
 # Write a method subsets that will return all subsets of an array.
 
-def subsets(arr)
-
+def subsets(array)
+  if array.empty?
+    [[]]
+  else
+    a, *b = array
+    new_arr = []
+    subsets(b).each do |subset|
+      new_arr.push(subset)
+      new_arr.push(subset.clone.push(a))
+    end
+    new_arr
+  end
 end
 
-subsets([]) # => [[]]
-subsets([1]) # => [[], [1]]
-subsets([1, 2]) # => [[], [1], [2], [1, 2]]
-subsets([1, 2, 3])
-# => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
-# You can implement this as an Array method if you prefer.
+def sum_to_zero?(array)
+  array.reduce(0, :+) == 0
+end
 
-# Hint: For subsets([1, 2, 3]), there are two kinds of subsets:
+def subsets_sum_to_zero(array)
+  subsets(array).select { |subset| sum_to_zero?(subset)}
+end
 
-# Those that do not contain 3 (all of these are subsets of [1, 2]).
-# For every subset that does not contain 3, there is also a corresponding subset that is the same, except it also does contain 3.
+puts "Array Subsets: \n"
+p subsets([]) # => [[]]
+p subsets([1]) # => [[], [1]]
+p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
+p subsets([1, 2, 3]) # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
 
 # Permutations
-# Write a recursive method permutations(array) that calculates all the permutations of the given array. For an array of length n there are n! different permutations. So for an array with three elements we will have 3 * 2 * 1 = 6 different permutations.
+# Write a recursive method permutations(array) that calculates all the permutations of the given array. 
 
 def permutations(array)
+  return [array] if array.length <= 1
 
+  a = array.shift # remove el at index 0, store as a
+  perms = permutations(array)
+  total_perms = []
+
+  perms.each do |perm|
+    (0..perm.length).each do |i|
+      total_perms << perm[0...i] + [a] + perm[i..-1]
+    end
+  end
+  total_perms
 end
 
-permutations([1, 2, 3]) # => [[1, 2, 3], [1, 3, 2],
-                        #     [2, 1, 3], [2, 3, 1],
-                        #     [3, 1, 2], [3, 2, 1]]
-# You can use Ruby's built in Array#permutation method to get a better understanding of what you will be building.
+puts "Permutations: \n"
+p permutations([1, 2, 3])   # [[1, 2, 3], [2, 1, 3], [2, 3, 1], [1, 3, 2], [3, 1, 2], [3, 2, 1]]
 
-[1, 2, 3].permutation.to_a  # => [[1, 2, 3], [1, 3, 2],
-                            #     [2, 1, 3], [2, 3, 1],
-                            #     [3, 1, 2], [3, 2, 1]]
-
+# And here is Ruby's built in Array#permutation method: 
+# [1, 2, 3].permutation.to_a
+# => [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
