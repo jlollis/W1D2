@@ -114,18 +114,30 @@ p fib_iter(11)  #89
 # Write a recursive binary search: bsearch(array, target). Note that binary search only works on sorted arrays. Make sure to return the location of the found object (or nil if not found!). Hint: you will probably want to use subarrays.
 
 def bsearch(array, target)
-
+    min_index = 0
+    max_index = array.size - 1
+    mid_index = (min_index+max_index)/2
+    case array[mid_index] <=> target
+    when  0 
+      mid_index
+    when -1  
+      min_index = mid_index + 1
+      bsearch(array, target)
+    when  1 
+      max_index = mid_index - 1
+      bsearch(array, target)
+    end
 end
 
 # Make sure that these test cases are working:
 
-bsearch([1, 2, 3], 1) # => 0
-bsearch([2, 3, 4, 5], 3) # => 1
-bsearch([2, 4, 6, 8, 10], 6) # => 2
-bsearch([1, 3, 4, 5, 9], 5) # => 3
-bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
-bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
-bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+p bsearch([1, 2, 3], 1) # => 0
+# bsearch([2, 3, 4, 5], 3) # => 1
+# bsearch([2, 4, 6, 8, 10], 6) # => 2
+# bsearch([1, 3, 4, 5, 9], 5) # => 3
+# bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+# bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+# bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
 
 
 
